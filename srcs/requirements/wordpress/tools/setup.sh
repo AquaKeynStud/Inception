@@ -16,10 +16,10 @@ cd /var/www/html || exit 1
 MYSQL_USER="$(cat /run/secrets/db_user)"
 MYSQL_PASSWORD="$(cat /run/secrets/db_password)"
 
-WP_USER="$(grep user /run/secrets/credentials | cut -d '=' -f2)"
-WP_ADMIN_USER="$(grep admin /run/secrets/credentials | cut -d '=' -f2)"
-WP_USER_PASSWORD="$(grep user_pswd /run/secrets/credentials | cut -d '=' -f2)"
-WP_ADMIN_PASSWORD="$(grep admin_pswd /run/secrets/credentials | cut -d '=' -f2)"
+WP_USER="$(grep user= /run/secrets/credentials | cut -d '=' -f2)"
+WP_ADMIN_USER="$(grep admin= /run/secrets/credentials | cut -d '=' -f2)"
+WP_USER_PASSWORD="$(grep user_pswd= /run/secrets/credentials | cut -d '=' -f2)"
+WP_ADMIN_PASSWORD="$(grep admin_pswd= /run/secrets/credentials | cut -d '=' -f2)"
 
 echo "Trying to connect to MariaDB at $MYSQL_HOST with user $MYSQL_USER..."
 
