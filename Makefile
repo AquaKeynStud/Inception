@@ -35,10 +35,11 @@ down:
 	@$(COMPOSE) down
 
 clean:
-	@echo "$(YELLOW)Cleaning $(NAME) containers and volumes...$(RESET)"
+	@echo "$(YELLOW)Cleaning $(NAME)...$(RESET)"
 	@$(COMPOSE) down -v --remove-orphans
-	@sudo $(RM) $(WORDPRESS_PATH)/*
-	@sudo $(RM) $(MARIADB_PATH)/*
+	@sudo rm -rf $(WORDPRESS_PATH)
+	@sudo rm -rf $(MARIADB_PATH)
+	@sudo mkdir -p $(WORDPRESS_PATH) $(MARIADB_PATH)
 	@echo "$(GREEN)Project data removed. Next launch will start from a clean state.$(RESET)"
 
 fclean:
