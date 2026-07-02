@@ -2,6 +2,7 @@
 set -e
 
 : "${MYSQL_HOST:?Need MYSQL_HOST}"
+: "${MYSQL_PORT:?Need MYSQL_PORT}"
 : "${MYSQL_DATABASE:?Need MYSQL_DATABASE}"
 
 : "${WP_USER_EMAIL:?Need WP_USER_EMAIL}"
@@ -23,14 +24,14 @@ WP_ADMIN_PASSWORD="$(grep admin_pswd= /run/secrets/credentials | cut -d '=' -f2)
 
 echo "Trying to connect to MariaDB at $MYSQL_HOST with user $MYSQL_USER..."
 
-until mysqladmin ping -h"$MYSQL_HOST" --silent >/dev/null 2>&1; do
+until mysqladmin ping -h"$MYSQL_HOST" -P"$MYSQL_PORT" --silent >/dev/null 2>&1; do
     echo "Waiting for MariaDB server..."
     sleep 1
 done
 
 echo "MariaDB server is reachable"
 
-until mysql -h "$MYSQL_HOST" -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" -e "SELECT 1;" >/dev/null 2>&1; do
+until mysql -h"$MYSQL_HOST" -P"$MYSQL_PORT" -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" -e "SELECT 1;" >/dev/null 2>&1; do
     echo "Waiting for valid WordPress DB credentials..."
     sleep 1
 done
@@ -48,7 +49,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
         --dbname="${MYSQL_DATABASE}" \
         --dbuser="${MYSQL_USER}" \
         --dbpass="${MYSQL_PASSWORD}" \
-        --dbhost="${MYSQL_HOST}" \
+        --dbhost="${MYSQL_HOST}:${MYSQL_PORT}" \
         --allow-root
 fi
 

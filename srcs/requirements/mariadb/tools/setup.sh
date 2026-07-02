@@ -1,15 +1,21 @@
 #!/bin/bash
 set -e
 
+: "${MYSQL_PORT:?Need MYSQL_PORT}"
 : "${MYSQL_DATABASE:?Need MYSQL_DATABASE}"
 
 unset MYSQL_HOST
 unset MYSQL_TCP_PORT
 
+CONFIG="/etc/mysql/mariadb.conf.d/50-server.cnf"
 INIT_FILE="/var/lib/mysql/.inception_initialized"
 MYSQL_USER="$(cat /run/secrets/db_user)"
 MYSQL_PASSWORD="$(cat /run/secrets/db_password)"
 MYSQL_ROOT_PASSWORD="$(cat /run/secrets/db_root_password)"
+
+sed -i 's/^bind-address.*/bind-address = 0.0.0.0/' "$CONFIG"
+sed -i '/^[[:space:]]*port[[:space:]]*=/d' "$CONFIG"
+echo "port = ${MYSQL_PORT}" >> "$CONFIG"
 
 if [ ! -d /var/lib/mysql/mysql ]; then
     echo "Initializing MariaDB system tables..."
