@@ -53,6 +53,16 @@ secrets/db_root_password.txt
 make up
 ```
 
+Other Makefile commands:
+- **build**: build the images
+- **up**: build the images and launches the containers
+- **down**: stops the containers
+- **clean**: removes containers and volumes
+- **fclean**: removes containers, volumes, images, cache, local data...
+- **logs**: launches with `logs -f`
+- **ps**: launches `docker ps`
+- **restart**: restarts the containers
+
 ### Using docker compose
 ```bash
 cd srcs

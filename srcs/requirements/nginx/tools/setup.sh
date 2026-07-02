@@ -11,4 +11,4 @@ openssl req -x509 -nodes -days 365 \
 	-subj "/C=FR/ST=IDF/L=Lyon/O=42/OU=42/CN=arocca.42.fr"
 
 echo "Launching NGINX..."
-nginx -g "daemon off;"
+exec nginx -g "daemon off;"

@@ -37,7 +37,7 @@ You can change what's following the `=`, or the value if none are in the file.
 
 Credentials are stored in the `secrets/` directory.
 
-**⚠️ These files must remain private and should never be pushed to a repository.**
+**⚠️ credentials.txt must contain user=, admin= for users and user_pswd=, admin_pswd= for passwords. The other files just contains a single line corresponding to the data itself. These files must remain private and should never be pushed to a repository.**
 
 ## ✅ Check Services Status
 

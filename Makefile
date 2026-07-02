@@ -1,18 +1,18 @@
-NAME		= inception
+NAME			:= inception
 
 COMPOSE_FILE	= srcs/docker-compose.yml
-COMPOSE		= sudo docker compose -f $(COMPOSE_FILE)
+COMPOSE			= sudo docker compose -f $(COMPOSE_FILE)
 
-DATA_PATH	= /home/arocca/data
+DATA_PATH		= /home/arocca/data
 WORDPRESS_PATH	= $(DATA_PATH)/wordpress
 MARIADB_PATH	= $(DATA_PATH)/mariadb
 
 MKDIR		= mkdir -p
-RM		= rm -rf
+RM			= rm -rf
 
 GREEN		= \033[1;32m
 YELLOW		= \033[1;33m
-RED		= \033[1;31m
+RED			= \033[1;31m
 RESET		= \033[0m
 
 all: up
